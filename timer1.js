@@ -1,16 +1,20 @@
 var myArgs = process.argv.slice(2);
+
+let index = 0;
 myArgs.sort((a, b) => a - b);
 console.log(myArgs);
-let index = 0;
 
 const timer = (timeArr) => {
-  setTimeout(() => {
-    process.stdout.write('\x07');
+  if (timeArr[index] >= 0){
+      setTimeout(() => {
+      process.stdout.write('\x07');
+      index ++;
+      if(index < timeArr.length) timer(timeArr);
+    }, timeArr[index] * 100)
+  }else{
     index ++;
-    if(index < timeArr.length) timer(myArgs);
-  }, timeArr[index] * 100)
+    timer(timeArr);
+  }
 }
 
-process.stdout.write('\x07');
-console.log('bell');
 timer(myArgs);
